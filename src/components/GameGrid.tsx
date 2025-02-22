@@ -14,6 +14,7 @@ const GameGrid: React.FC<GameGridProps> = ({ games }) => (
             <GameCard
                 key={index}
                 title={game.title}
+                gameImage={game.image}
                 description={game.description}
             />
         ))}

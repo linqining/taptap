@@ -5,9 +5,11 @@ import UploadButton from './UploadButton.tsx';
 import {Game} from "../types.ts";
 import styles from '../styles/HotGame.module.css';
 
+
 const games:Game[] = [
-    { title: '海洋冒险', description: '探索神秘海底世界的冒险游戏' },
-    { title: '极地竞速', description: '冰雪世界的极速赛车体验' },
+    { title: '俄罗斯方块', description: '魅力与经典的记忆坐标', image:'russian_block.png' },
+    { title: '海洋冒险', description: '探索神秘海底世界的冒险游戏', image:'ocean_adventure.png' },
+    { title: '极地竞速', description: '冰雪世界的极速赛车体验', image:'polar_racing.png' },
     // 更多游戏数据...
 ];
 

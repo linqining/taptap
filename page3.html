@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>俄罗斯方块 - Walrus游戏平台</title>
+  <style>
+    :root {
+      --primary: #2c3e50;
+      --accent: #e67e22;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+
+    .game-header {
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin: 30px 0;
+    }
+
+    .primary-btn {
+      padding: 12px 36px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .secondary-btn {
+      background: var(--primary);
+    }
+
+    .game-meta {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 20px 0;
+      color: #666;
+    }
+
+    .comment-section {
+      background: #f8f9fa;
+      padding: 30px;
+      border-radius: 10px;
+      margin-top: 40px;
+    }
+
+    .comment-form {
+      margin-bottom: 40px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .star-rating {
+      color: #ffc107;
+      font-size: 24px;
+    }
+
+    /* 继承之前的卡片样式 */
+    .review-card {
+      margin-bottom: 20px;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- 页头 -->
+  <header class="header">
+    <img src="logo.png" alt="Walrus LOGO" width="150">
+    <button class="wallet-btn"> <!-- 复用之前的钱包按钮样式 -->
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21 7.28V5c0-1.1-.9-2-2-2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-2.28A2 2 0 0 0 22 15V9a2 2 0 0 0-1-1.72zM15 18H6V6h9v3h-3.25c-.41 0-.75.34-.75.75s.34.75.75.75H15v7z"/></svg>
+      连接钱包
+    </button>
+  </header>
+
+  <!-- 游戏主体 -->
+  <main>
+    <div class="game-header">
+      <h1>《俄罗斯方块》</h1>
+      <div class="game-meta">
+        <div class="star-rating">★★★★☆</div>
+        <div>到期时间：2025/03/01</div>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="primary-btn">立即下载</button>
+      <button class="primary-btn secondary-btn">续费授权</button>
+    </div>
+
+    <!-- 评论模块 -->
+    <section class="comment-section">
+      <h2>用户评价（238）</h2>
+
+      <!-- 新增评论表单 -->
+      <form class="comment-form">
+        <div class="form-group">
+          <input type="text" placeholder="用户名" style="width: 200px; padding: 8px;">
+        </div>
+        <div class="form-group">
+          <div class="star-rating">
+            <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <textarea rows="4" style="width: 100%; padding: 10px;"></textarea>
+        </div>
+        <button class="primary-btn" type="submit">提交评价</button>
+      </form>
+
+      <!-- 现有评论 -->
+      <div class="review-card">
+        <div class="review-header">
+          <span>方块达人</span>
+          <span class="star-rating">★★★★☆</span>
+        </div>
+        <p>经典永不过时，最佳休闲游戏！希望增加联机功能</p>
+      </div>
+
+      <div class="review-card">
+        <div class="review-header">
+          <span>新手玩家</span>
+          <span class="star-rating">★★★★★</span>
+        </div>
+        <p>操作流畅，怀旧感十足！每日必玩</p>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

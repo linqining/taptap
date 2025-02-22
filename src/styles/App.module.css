@@ -1,0 +1,20 @@
+:root {
+    --primary: #2c3e50;
+    --accent: #e67e22;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.mainTitle {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.uploadSection {
+    text-align: center;
+    margin: 50px 0;
+}

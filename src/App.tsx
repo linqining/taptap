@@ -1,7 +1,7 @@
 // App.jsx
 import Header from "./components/Header.tsx";
 
-import GameDetail   from "./components/GameDetail.tsx";
+import TetrisGamePage   from "./components/TetrisGamePage.tsx";
 import styles from './styles/App.module.css';
 
 const App = () => {
@@ -9,7 +9,7 @@ const App = () => {
         <div className={styles.container}>
             <Header />
             <main>
-                <GameDetail />
+                <TetrisGamePage />
             </main>
         </div>
     );

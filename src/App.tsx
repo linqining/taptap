@@ -1,39 +1,32 @@
-import { ConnectButton } from "@mysten/dapp-kit";
-import { Box, Container, Flex, Heading } from "@radix-ui/themes";
-import { WalletStatus } from "./WalletStatus";
+// App.jsx
+import Header from "./components/Header.jsx";
+import GameGrid from './components/GameGrid.jsx';
+import UploadButton from './components/UploadButton.jsx';
+import styles from './styles/App.module.css';
+import {Game} from "./types.ts";
 
-function App() {
-  return (
-    <>
-      <Flex
-        position="sticky"
-        px="4"
-        py="2"
-        justify="between"
-        style={{
-          borderBottom: "1px solid var(--gray-a2)",
-        }}
-      >
-        <Box>
-          <Heading>dApp Starter Template</Heading>
-        </Box>
+const App = () => {
+    const games:Game[] = [
+        { title: '海洋冒险', description: '探索神秘海底世界的冒险游戏' },
+        { title: '极地竞速', description: '冰雪世界的极速赛车体验' },
+        // 更多游戏数据...
+    ];
 
-        <Box>
-          <ConnectButton />
-        </Box>
-      </Flex>
-      <Container>
-        <Container
-          mt="5"
-          pt="2"
-          px="4"
-          style={{ background: "var(--gray-a2)", minHeight: 500 }}
-        >
-          <WalletStatus />
-        </Container>
-      </Container>
-    </>
-  );
-}
+    return (
+        <div className={styles.container}>
+            <Header />
+
+            <main>
+                <h1 className={styles.mainTitle}>近期热门游戏</h1>
+
+                <GameGrid games={games} />
+
+                <div className={styles.uploadSection}>
+                    <UploadButton />
+                </div>
+            </main>
+        </div>
+    );
+};
 
 export default App;

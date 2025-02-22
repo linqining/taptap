@@ -1,7 +1,12 @@
 import React from 'react';
 import styles from '../styles/TetrisGamePage.module.css';
 
+import { useParams } from 'react-router-dom';
+
 const TetrisGamePage: React.FC = () => {
+    const { gameId } = useParams();
+    console.log(gameId);
+
     // 样式常量
     const buttonStyles = {
         actionButtons: {

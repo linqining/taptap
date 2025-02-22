@@ -1,9 +1,9 @@
 
 import React from 'react';
 import GameGrid from './GameGrid.tsx';
-import UploadButton from './UploadButton.tsx';
 import {Game} from "../types.ts";
 import styles from '../styles/HotGame.module.css';
+import FileUpload from "./FileUpload.tsx";
 
 const games:Game[] = [
     {id:"russian_block", title: '俄罗斯方块', description: '魅力与经典的记忆坐标', image:'russian_block.png' },
@@ -12,15 +12,15 @@ const games:Game[] = [
     // 更多游戏数据...
 ];
 
+
 const HotGame: React.FC = () => {
     return (
         <div>
             <h1 className={styles.mainTitle}>近期热门游戏</h1>
 
             <GameGrid games={games}/>
-
             <div className={styles.uploadSection}>
-                <UploadButton/>
+                <FileUpload />
             </div>
         </div>
     );

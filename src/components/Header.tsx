@@ -6,7 +6,7 @@ import logo from '../image/logo.png';
 
 const Header:React.FC = () => (
     <header className={styles.header}>
-        <img src={logo} alt="Walrus LOGO" width="150" />
+        <img src={logo} alt="Walrus LOGO" width="50" />
         <div className={styles.navGroup}>
             <WalletButton />
         </div>

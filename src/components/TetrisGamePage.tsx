@@ -174,14 +174,18 @@ const TetrisGamePage: React.FC = () => {
             backgroundColor: '#2c3e50', // primary color
         },
     };
+    const imagePath = game?.image ? "/images/"+game?.image: "/images/polar_racing.png";
     return (
       <div>
         {/* 游戏主体 */}
         <main>
           <div className={styles.gameHeader}>
             <h1>《{game?.name}》</h1>
+            <img style={{width:"50%"}} src={imagePath}  />
             <div className={styles.gameMeta}>
-                <RatingScore score={game?.average_score?game?.average_score:0} />
+              <RatingScore
+                score={game?.average_score ? game?.average_score : 0}
+              />
               <div>到期时间：2025/03/01</div>
             </div>
           </div>
@@ -241,7 +245,6 @@ const TetrisGamePage: React.FC = () => {
 
             {/* 现有评论 */}
             {comments?.map((comment, index) => (
-
               <div key={index} className={styles.reviewCard}>
                 <div
                   style={{
@@ -250,14 +253,17 @@ const TetrisGamePage: React.FC = () => {
                     marginBottom: "10px",
                   }}
                 >
-                  <span className={styles.textLimit}>{comment.owner}0x6fe2c22857412778b6b6eda51dbf2bf26f7e130d9cfc4b67e3c53d39e7f0a3c5
-</span>
-                    <span><RatingScore score={comment.score} /></span>
+                  <span className={styles.textLimit}>
+                    {comment.owner}
+                    0x6fe2c22857412778b6b6eda51dbf2bf26f7e130d9cfc4b67e3c53d39e7f0a3c5
+                  </span>
+                  <span>
+                    <RatingScore score={comment.score} />
+                  </span>
                 </div>
                 <p>{comment.text}</p>
               </div>
-            ))
-            }
+            ))}
           </section>
         </main>
       </div>

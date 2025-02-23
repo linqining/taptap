@@ -1,19 +1,13 @@
 
-import  {useState,useEffect} from 'react';
+import React, {useState, useEffect, ChangeEvent} from 'react';
 import GameGrid from './GameGrid.tsx';
 import {EGameAddEvent, Game} from "../types.ts";
 import styles from '../styles/HotGame.module.css';
-import FileUpload from "./FileUpload.tsx";
-import AddGame from "../contract/AddGame.tsx";
-import {useSuiClient} from "@mysten/dapp-kit";
+import {useSignAndExecuteTransaction, useSuiClient} from "@mysten/dapp-kit";
 import {SuiEvent} from "@mysten/sui/client";
+import {Transaction} from "@mysten/sui/transactions";
 
-// var games:Game[] = [
-//     {id:"russian_block", title: '俄罗斯方块', description: '魅力与经典的记忆坐标', image:'russian_block.png' },
-//     {id:"ocean_adventure", title: '海洋冒险', description: '探索神秘海底世界的冒险游戏', image:'ocean_adventure.png' },
-//     {id:"polar_racing", title: '极地竞速', description: '冰雪世界的极速赛车体验', image:'polar_racing.png' },
-//     // 更多游戏数据...
-// ];
+import uploadBtnStyle from "../styles/UploadButton.module.css";
 
 
 function HotGame (){
@@ -35,21 +29,69 @@ function HotGame (){
                 setGames(games);
                 console.log(events)
             });
-            // console.log(games)
-        // };
-        // fetchData();
+
     }, []); // 空依赖数组表示只在组件挂载时执行
 
-
+    const [gameName, setGameName] = useState<string | null>(null);
+    const {mutate:signAndExecute} = useSignAndExecuteTransaction();
+    // 处理文件选择
+    const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setGameName(event.target.value);
+    };
+    const UploadIcon: React.FC = () => (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+        </svg>
+    );
+    const handleAddGame = () => {
+        const tx = new Transaction();
+        if (!gameName) {
+            return;
+        }
+        tx.moveCall({
+            package: "0x29f07bb972a6511703f05d53693c7de9dacf13e141ec8ba763b73ae6fd0218df",
+            module: "page",
+            function: "add_game",
+            arguments: [
+                tx.object("0xc1e812817f51e112c8a373875f08868a4c896be9c974b0f14796c80d3141578b"),
+                tx.pure.string(gameName),
+            ]
+        });
+        signAndExecute({transaction: tx},      {
+            onSuccess: async ({ digest }) => {
+                const { effects } = await client.waitForTransaction({
+                    digest: digest,
+                    options: {
+                        showEffects: true,
+                    },
+                });
+                alert("Game added"+gameName);
+                console.log(effects)
+            },
+        },);
+    }
 
     return (
         <div>
             <h1 className={styles.mainTitle}>近期热门游戏</h1>
-
             <GameGrid games={games}/>
-            <AddGame/>
+            {/*<AddGame/>*/}
             <div className={styles.uploadSection}>
-                <FileUpload />
+                {/*<FileUpload/>*/}
+                <div className="file-upload-container">
+                    <div>
+                        <input
+                            type="text"
+                            className={uploadBtnStyle.inputBox}
+                            placeholder="输入游戏名称"
+                            onChange={handleNameChange}
+                        />
+                    </div>
+                    <button onClick={handleAddGame} className={uploadBtnStyle.uploadBtn}>
+                        <UploadIcon/>
+                        上传游戏
+                    </button>
+                </div>
             </div>
         </div>
     );

@@ -2,6 +2,7 @@
 import {useSuiClient ,useSignAndExecuteTransaction,} from "@mysten/dapp-kit";
 import {Transaction} from "@mysten/sui/transactions";
 import {ChangeEvent, useState} from "react";
+import styles from "../styles/AddGame.module.css";
 
 
 const AddGame: React.FC  = () => {
@@ -41,8 +42,8 @@ const AddGame: React.FC  = () => {
     }
     return (
         <div>
-            <input onChange={handleNameChange}/>
-            <button onClick={handleAddGame}>Add Game</button>
+            <input className={styles.styledInput}  onChange={handleNameChange}/>
+            <button className={styles.addGameBtn}  onClick={handleAddGame}>Add Game</button>
         </div>
     );
 };

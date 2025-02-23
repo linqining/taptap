@@ -10,3 +10,22 @@
     align-items: center;
     gap: 10px;
 }
+
+.inputBox{
+    padding: 10px 16px;
+    border: 1px solid var(--dapp-kit-borderColors-outlineButton);
+    border-radius: var(--dapp-kit-radii-medium);
+    font-size: var(--dapp-kit-fontSizes-medium);
+    color: var(--dapp-kit-colors-primaryButton);
+    background: var(--dapp-kit-backgroundColors-primaryButton);
+    box-shadow: var(--dapp-kit-shadows-primaryButton);
+    margin-right: 12px;
+    width: 240px;
+    transition: all 0.2s ease;
+}
+
+.inputBox::placeholder{
+    text-align: center; /* placeholder 文本居中 */
+    color: #999; /* placeholder 文本颜色 */
+    /*font-size: 14px; !* placeholder 文本字体大小 *!*/
+}

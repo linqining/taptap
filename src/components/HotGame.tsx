@@ -48,7 +48,7 @@ function HotGame (){
     );
 
 
-    const [modalShow, setModalShow] = useState<Boolean>(false);
+    const [modalShow, setModalShow] = React.useState(false);
 
     const showModal = () => {
         setModalShow(true)
@@ -108,8 +108,6 @@ function HotGame (){
             <Modal
                 title="交易处理中"
                 open={modalShow}
-                // onOk={clockModal}
-                // onCancel={handleCancel}
             >
                 <p>交易处理中</p>
             </Modal>

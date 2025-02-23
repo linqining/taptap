@@ -17,6 +17,8 @@ const TetrisGamePage: React.FC = () => {
     const [score, setScore] = useState<number >(0);
     const [game, setGame] = useState<Game|null >(null);
     const [comments, setComments] = useState<GameComment[]>();
+    const [modalShow, setModalShow] = React.useState(false);
+
     const client = useSuiClient();
     const {mutate:signAndExecute} = useSignAndExecuteTransaction();
 
@@ -113,7 +115,6 @@ const TetrisGamePage: React.FC = () => {
         }
     }
 
-    const [modalShow, setModalShow] = useState<Boolean>(false);
 
     const showModal = () => {
         setModalShow(true)
@@ -227,7 +228,7 @@ const TetrisGamePage: React.FC = () => {
           </div>
           {/* 评论模块 */}
           <section className={styles.commentSection}>
-            <h2>用户评价（{game?.comments.length}）</h2>
+            <h2>用户评价（{game?.comments?.length}）</h2>
             {/* 评论表单 */}
             <form style={{ marginBottom: "40px" }}>
               {/*<div style={{ marginBottom: "20px" }}>*/}

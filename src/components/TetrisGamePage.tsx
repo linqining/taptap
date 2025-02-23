@@ -192,14 +192,14 @@ const TetrisGamePage: React.FC = () => {
 
           <div style={buttonStyles.actionButtons}>
             <button className={styles.primaryBtn}>立即下载</button>
-            <button
-              style={{
-                ...buttonStyles.primaryBtn,
-                ...buttonStyles.secondaryBtn,
-              }}
-            >
-              续费授权
-            </button>
+            {/*<button*/}
+            {/*  style={{*/}
+            {/*    ...buttonStyles.primaryBtn,*/}
+            {/*    ...buttonStyles.secondaryBtn,*/}
+            {/*  }}*/}
+            {/*>*/}
+            {/*  续费授权*/}
+            {/*</button>*/}
           </div>
           {/* 评论模块 */}
           <section className={styles.commentSection}>

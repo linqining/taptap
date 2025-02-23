@@ -6,7 +6,7 @@ import styles from '../styles/HotGame.module.css';
 import {useSignAndExecuteTransaction, useSuiClient} from "@mysten/dapp-kit";
 import {SuiEvent} from "@mysten/sui/client";
 import {Transaction} from "@mysten/sui/transactions";
-import { Modal, Button } from 'antd';
+import { Modal ,message} from 'antd';
 
 import uploadBtnStyle from "../styles/UploadButton.module.css";
 
@@ -47,6 +47,7 @@ function HotGame (){
         </svg>
     );
 
+
     const [modalShow, setModalShow] = useState<Boolean>(false);
 
     const showModal = () => {
@@ -62,7 +63,10 @@ function HotGame (){
     const handleAddGame = () => {
         const tx = new Transaction();
         if (!gameName) {
-
+            messageApi.open({
+                type: 'error',
+                content: '名字不能为空',
+            });
             return;
         }
 
@@ -96,9 +100,11 @@ function HotGame (){
             }
         },);
     }
+    const [messageApi, contextHolder] = message.useMessage();
 
     return (
         <div>
+            {contextHolder}
             <Modal
                 title="交易处理中"
                 open={modalShow}

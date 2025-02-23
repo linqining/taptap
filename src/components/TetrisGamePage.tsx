@@ -255,7 +255,6 @@ const TetrisGamePage: React.FC = () => {
                 >
                   <span className={styles.textLimit}>
                     {comment.owner}
-                    0x6fe2c22857412778b6b6eda51dbf2bf26f7e130d9cfc4b67e3c53d39e7f0a3c5
                   </span>
                   <span>
                     <RatingScore score={comment.score} />

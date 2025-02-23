@@ -4,21 +4,17 @@ export interface Game {
     name: string;
     description: string;
     image: string;
-    comments: string[],
-    average_score: number
-    blobs: []
-    num_comments: number
-    total_score: number
+    comments?: string[],
+    average_score?: number
+    blobs?: []
+    num_comments?: number
+    total_score?: number
 }
 
 export interface GameComment {
-    id:string,
-    name:string,
-    comments: string[],
-    average_score: string
-    blobs: []
-    num_comments: string
-    total_score: string
+    owner:string
+    score: number
+    text:string
 }
 
 export interface EGameAddEvent {

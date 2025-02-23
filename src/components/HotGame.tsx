@@ -30,12 +30,12 @@ function HotGame (){
                 console.log("query result",events)
                 var games = events.data.map(function(ent   :SuiEvent):Game {
                     const val = ent.parsedJson as EGameAddEvent;
-                    return {id: val.id,title:val.name,description:"description",image:"image"};
+                    return {id: val.id,name:val.name,description:"description",image:""};
                 })
                 setGames(games);
                 console.log(events)
             });
-            console.log(games)
+            // console.log(games)
         // };
         // fetchData();
     }, []); // 空依赖数组表示只在组件挂载时执行

@@ -20,7 +20,7 @@ const GameGrid: React.FC<GameGridProps> = ({ games }) => {
                 }}>
                     <GameCard
                         key={index}
-                        title={game.title}
+                        name={game.name}
                         gameImage={game.image}
                         description={game.description}
                     />

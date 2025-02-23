@@ -4,16 +4,18 @@ import styles from '../styles/TetrisGamePage.module.css';
 import { useParams } from 'react-router-dom';
 import {useSignAndExecuteTransaction, useSuiClient} from "@mysten/dapp-kit";
 import {Transaction} from "@mysten/sui/transactions";
-import {Game} from "../types.ts";
+import {Game,GameComment} from "../types.ts";
 import {MoveStruct, MoveValue} from "@mysten/sui/client";
+import RatingScore from "./RatingScore.tsx";
 
 const TetrisGamePage: React.FC = () => {
     const { gameId } = useParams();
-    console.log(gameId);
+    // console.log(gameId);
 
     const [remark, setRemark] = useState<string >("");
     const [score, setScore] = useState<number >(0);
     const [game, setGame] = useState<Game|null >(null);
+    const [comments, setComments] = useState<GameComment[]>();
     const client = useSuiClient();
     const {mutate:signAndExecute} = useSignAndExecuteTransaction();
 
@@ -36,6 +38,26 @@ const TetrisGamePage: React.FC = () => {
                     gameData.average_score = Number(gameData.average_score)
                     gameData.total_score = Number(gameData.total_score)
                     setGame(gameData)
+                    client.multiGetObjects({
+                        ids: gameData.comments,
+                        options:{
+                            showContent:true,
+                        }
+                    }).then((res) => {
+                        let comments = res.map((item) => {
+                            const content = item.data?.content;
+                            if (content && content.dataType==="moveObject"){
+                                const fields = content.fields;
+                                const result = parseMoveStruct(fields)
+                                return {
+                                    owner: result.owner,
+                                    score: Number(result.score),
+                                    text: result.text
+                                }
+                            }
+                        })
+                        setComments(comments)
+                    })
                 }
             }
         })
@@ -159,10 +181,7 @@ const TetrisGamePage: React.FC = () => {
           <div className={styles.gameHeader}>
             <h1>《{game?.name}》</h1>
             <div className={styles.gameMeta}>
-              <div className={styles.starRating}>
-                  {[...Array(5)].map((_, i) => (
-                      <span key={i} >{game?.average_score? (i<=game.average_score? "★":"☆"):"☆"}</span>
-                  ))}</div>
+                <RatingScore score={game?.average_score?game?.average_score:0} />
               <div>到期时间：2025/03/01</div>
             </div>
           </div>
@@ -183,24 +202,33 @@ const TetrisGamePage: React.FC = () => {
             <h2>用户评价（{game?.comments.length}）</h2>
             {/* 评论表单 */}
             <form style={{ marginBottom: "40px" }}>
-              <div style={{ marginBottom: "20px" }}>
-                <input
-                  type="text"
-                  placeholder="用户名"
-                  style={{ width: "200px", padding: "8px" }}
-                />
-              </div>
+              {/*<div style={{ marginBottom: "20px" }}>*/}
+              {/*  <input*/}
+              {/*    type="text"*/}
+              {/*    placeholder="用户名"*/}
+              {/*    style={{ width: "200px", padding: "8px" }}*/}
+              {/*  />*/}
+              {/*</div>*/}
               <div style={{ marginBottom: "20px" }}>
                 <div className={styles.starRating}>
-                    {[...Array(5)].map((_, i) => (
-                        <span key={i} onClick={()=>{
-                            setScore(i)
-                        }}>{i<=score? "★":"☆"}</span>
+                  {[...Array(5)].map((_, i) => (
+                    <span
+                      key={i}
+                      onClick={() => {
+                        setScore(i);
+                      }}
+                    >
+                      {i <= score ? "★" : "☆"}
+                    </span>
                   ))}
                 </div>
               </div>
               <div style={{ marginBottom: "20px" }}>
-                <textarea rows={4} style={{ width: "100%", padding: "10px" }} onChange={handleRemarkChange}/>
+                <textarea
+                  rows={4}
+                  style={{ width: "100%", padding: "10px" }}
+                  onChange={handleRemarkChange}
+                />
               </div>
               <button
                 className={styles.primaryBtn}
@@ -212,33 +240,24 @@ const TetrisGamePage: React.FC = () => {
             </form>
 
             {/* 现有评论 */}
-            <div className={styles.reviewCard}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginBottom: "10px",
-                }}
-              >
-                <span>方块达人</span>
-                <span className={styles.starRating}>★★★★☆</span>
-              </div>
-              <p>经典永不过时，最佳休闲游戏！希望增加联机功能</p>
-            </div>
+            {comments?.map((comment, index) => (
 
-            <div className={styles.reviewCard}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginBottom: "10px",
-                }}
-              >
-                <span>新手玩家</span>
-                <span className={styles.starRating}>★★★★★</span>
+              <div key={index} className={styles.reviewCard}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginBottom: "10px",
+                  }}
+                >
+                  <span className={styles.textLimit}>{comment.owner}0x6fe2c22857412778b6b6eda51dbf2bf26f7e130d9cfc4b67e3c53d39e7f0a3c5
+</span>
+                    <span><RatingScore score={comment.score} /></span>
+                </div>
+                <p>{comment.text}</p>
               </div>
-              <p>操作流畅，怀旧感十足！每日必玩</p>
-            </div>
+            ))
+            }
           </section>
         </main>
       </div>

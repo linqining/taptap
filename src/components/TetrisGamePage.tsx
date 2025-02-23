@@ -7,6 +7,7 @@ import {Transaction} from "@mysten/sui/transactions";
 import {Game,GameComment} from "../types.ts";
 import {MoveStruct, MoveValue} from "@mysten/sui/client";
 import RatingScore from "./RatingScore.tsx";
+import {Modal} from "antd";
 
 const TetrisGamePage: React.FC = () => {
     const { gameId } = useParams();
@@ -112,6 +113,17 @@ const TetrisGamePage: React.FC = () => {
         }
     }
 
+    const [modalShow, setModalShow] = useState<Boolean>(false);
+
+    const showModal = () => {
+        setModalShow(true)
+        console.log("show modal")
+    };
+    const clockModal=()  => {
+        setModalShow(false);
+    };
+
+
 
 
 
@@ -137,6 +149,7 @@ const TetrisGamePage: React.FC = () => {
                 tx.pure.u64(score),
             ]
         });
+        showModal();
         signAndExecute({transaction: tx},      {
             onSuccess: async ({ digest }) => {
                 const { effects } = await client.waitForTransaction({
@@ -145,9 +158,12 @@ const TetrisGamePage: React.FC = () => {
                         showEffects: true,
                     },
                 });
-                alert("Game added comment"+gameId);
                 console.log(effects)
+                clockModal();
             },
+            onError: async () => {
+                clockModal();
+            }
         });
     }
 
@@ -177,6 +193,14 @@ const TetrisGamePage: React.FC = () => {
     const imagePath = game?.image ? "/images/"+game?.image: "/images/polar_racing.png";
     return (
       <div>
+          <Modal
+              title="交易处理中"
+              open={modalShow}
+              // onOk={clockModal}
+              // onCancel={handleCancel}
+          >
+              <p>交易处理中</p>
+          </Modal>
         {/* 游戏主体 */}
         <main>
           <div className={styles.gameHeader}>

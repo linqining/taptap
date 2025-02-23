@@ -49,20 +49,15 @@ function HotGame (){
 
     const [modalShow, setModalShow] = useState<Boolean>(false);
 
-
     const showModal = () => {
         setModalShow(true)
         console.log("show modal")
     };
     const clockModal=()  => {
-        // console.log(e);
         setModalShow(false);
     };
 
-    const handleCancel = (e)=> {
-        console.log(e);
-        setModalShow(false)
-    };
+
 
     const handleAddGame = () => {
         const tx = new Transaction();
@@ -106,7 +101,7 @@ function HotGame (){
         <div>
             <Modal
                 title="交易处理中"
-                visible={modalShow}
+                open={modalShow}
                 // onOk={clockModal}
                 // onCancel={handleCancel}
             >
